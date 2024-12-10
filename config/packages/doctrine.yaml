@@ -1,0 +1,29 @@
+doctrine:
+    dbal:
+        #url: 'mysql://%env(resolve:DATABASE_USER)%:%env(resolve:DATABASE_PASSWORD)%@%env(resolve:DATABASE_HOST)%:%env(resolve:DATABASE_PORT)%/%env(resolve:DATABASE_SCHEMA)%?serverVersion=%env(resolve:DATABASE_VERSION)%&charset=utf8mb4'
+        url: 'postgresql://%env(resolve:DATABASE_USER)%:%env(resolve:DATABASE_PASSWORD)%@%env(resolve:DATABASE_HOST)%:%env(resolve:DATABASE_PORT)%/%env(resolve:DATABASE_SCHEMA)%?serverVersion=%env(resolve:DATABASE_VERSION)%&charset=utf8'
+
+        profiling_collect_backtrace: '%kernel.debug%'
+        use_savepoints: true
+    orm:
+        auto_generate_proxy_classes: true
+        enable_lazy_ghost_objects: true
+        report_fields_where_declared: true
+        validate_xml_mapping: true
+        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+        auto_mapping: true
+        mappings:
+            Common:
+                type: attribute
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Common/Entity'
+                prefix: 'App\Common\Entity'
+                alias: App
+            Api:
+                type: attribute
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Api/Entity'
+                prefix: 'App\Api\Entity'
+                alias: App
+        controller_resolver:
+            auto_mapping: false

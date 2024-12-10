@@ -1,0 +1,46 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+        bind:
+            # pass this value to any $adminEmail argument for any service
+            # that's defined in this file (including controller arguments)
+            bool $debug: '%env(bool:APP_DEBUG)%'
+            int $repeatedPasswordTtl: '%env(int:REPEATED_PASSWORD_TTL)%'
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/{Api,Common}/DependencyInjection/'
+            - '../src/{Api,Common}/Entity/'
+            - '../src/{Api,Common}/Enum/'
+            - '../src/{Api,Common}/Error/'
+            - '../src/{Api,Common}/Model/'
+            - '../src/{Api,Common}/Serializer/'
+            - '../src/Kernel.php'
+
+    App\Common\Controller\:
+        resource: "../src/Common/Controller/"
+        tags: ["controller.service_arguments"]
+
+    App\Api\Controller\:
+        resource: "../src/Api/Controller/"
+        tags: [ "controller.service_arguments" ]
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+    # explicitly configure the service
+    App\Common\Service\Utils\Helper\RequestHelper:
+        arguments:
+            $accessMap: '@security.access_map'

@@ -1,0 +1,22 @@
+<IfModule mod_rewrite.c>
+    Options -MultiViews
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ index.php [QSA,L]
+</IfModule>
+
+<IfModule !mod_rewrite.c>
+    <IfModule mod_alias.c>
+        RedirectMatch 302 ^/|/public$ /index.php/
+    </IfModule>
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header unset X-Powered-By
+  Header always unset X-Powered-By
+</IfModule>
+
+RewriteCond %{HTTP:Authorization} ^(.*)
+RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
+
+Header always set Access-Control-Allow-Methods: "GET,POST,OPTIONS,DELETE,PUT"
