@@ -5,6 +5,7 @@ namespace App\Common\Enum\User\UserType;
 final class UserTypeCodeEnum
 {
     public const ADMIN = 'admin';
+    public const API = 'api';
 
     public static function getAllValues(): array
     {
