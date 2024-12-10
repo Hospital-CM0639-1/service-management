@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity]
-#[ORM\Table(name: 'request_logs')]
+#[ORM\Table(name: 'management_service_request_logs')]
 #[ORM\Index(name: 'idx_username', fields: ['username'])]
 #[ORM\Index(name: 'idx_url', fields: ['url'])]
 #[ORM\Index(name: 'idx_path_info', fields: ['pathInfo'])]
