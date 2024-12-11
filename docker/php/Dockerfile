@@ -17,7 +17,8 @@ RUN install-php-extensions ctype  \
 
 RUN apt update \
     && apt upgrade -y \
-    && apt install -y nano
+    && apt install -y nano \
+    && apt install -y unzip
 
 # rewrite_mod for htaccess
 RUN a2enmod rewrite
