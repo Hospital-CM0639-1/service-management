@@ -5,7 +5,7 @@
 2. Eventually, you can change docker port inside of docker-composer.yaml 
 3. Launch the setup with:
     ```sh
-    docker compose -f PATH_TO_REPO/docker-compose.yaml -p management_service up -d
+    docker compose -f PATH_TO_REPO/docker-compose.yaml -p service-management up -d
     ```
 4. Execute PATH_TO_REPO/docker-start.sh to install dependencies and execute migrations (I suggest to execute them every time after a pull)
 5. Check .env.dev.local and .env.local.php to see if DATABASE_ params are correct, otherwise change in both files.
@@ -18,6 +18,6 @@
 1. Create an api user into the users table (type_id check user_types table) with random values, it's just labels
 2. Execute the following command:
    ```sh
-   docker exec --workdir /var/www/html management_service php bin/console api:generate-api-token --user-id=INSERT_USER_ID --name=INSERT_API_TOKEN_NAME
+   docker exec --workdir /var/www/html service-management php bin/console api:generate-api-token --user-id=INSERT_USER_ID --name=INSERT_API_TOKEN_NAME
    ```
 3. The given token must be inserted in the requests to "api/gateway/validate-user-token" and "api/service/validate-user-token" endpoints under header name "API-Token"
