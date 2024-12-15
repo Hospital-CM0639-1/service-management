@@ -11,6 +11,7 @@ final class UserTypeCodeEnum
     {
         return [
             self::ADMIN,
+            self::API,
         ];
     }
 
@@ -18,6 +19,7 @@ final class UserTypeCodeEnum
     {
         return match ($value) {
             self::ADMIN => 'Admin',
+            self::API => 'API',
         };
     }
 }

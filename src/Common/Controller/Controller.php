@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Contracts\Service\Attribute\Required;
 
-class Controller extends AbstractController
+abstract class Controller extends AbstractController
 {
     protected readonly DoctrineHelper $doctrineHelper;
     protected readonly SerializeHelper $serializeHelper;

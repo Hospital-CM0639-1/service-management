@@ -14,6 +14,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Attribute\Groups;
+use Symfony\Component\Serializer\Attribute\SerializedName;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: 'users')]
@@ -24,7 +25,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::INTEGER)]
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: "IDENTITY")]
-    #[Groups(['minimalUser', 'simpleUser', 'user', 'loggedUser'])]
+    #[Groups([
+        'minimalUser', 'simpleUser', 'user', 'loggedUser',
+        'simpleApiUserInfo'
+    ])]
     private int $id;
 
     #[ManyToOne(targetEntity: UserType::class)]
@@ -37,7 +41,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private string $name;
 
     #[ORM\Column]
-    #[Groups(['minimalUser', 'simpleUser', 'user', 'loggedUser'])]
+    #[Groups([
+        'minimalUser', 'simpleUser', 'user', 'loggedUser',
+        'simpleApiUserInfo'
+    ])]
     private string $surname;
 
     #[ORM\Column]
@@ -75,7 +82,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: Types::TEXT, length: CommonEnum::TEXT_LENGTH, nullable: true)]
     #[Groups(['loggedUser'])]
+    #[SerializedName('token')]
     private ?string $lastToken = null;
+
+    ######## ================================================
+    ######## === VIRTUAL PROPERTIES
+    ######## ================================================
+
+    #[Groups(['simpleApiUserInfo'])]
+    #[SerializedName('type')]
+    public function getSimpleApiUserInfoType(): string
+    {
+        return $this->getType()->getCode();
+    }
+
+    #[Groups(['simpleApiUserInfo'])]
+    #[SerializedName('role')]
+    public function getSimpleApiUserInfoRole(): ?string
+    {
+        # todo
+        return null;
+    }
 
     ######## ================================================
     ######## === COSTRUTTORE

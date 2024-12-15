@@ -34,4 +34,9 @@ final class UserGroupSerializer
             ['loggedUser']
         );
     }
+
+    public static function simpleApiUserInfo(): array
+    {
+        return ['simpleApiUserInfo'];
+    }
 }

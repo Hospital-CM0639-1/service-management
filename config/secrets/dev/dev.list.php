@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'API_TOKEN_ENC_KEY' => null,
     'APP_SECRET' => null,
     'DATABASE_HOST' => null,
     'DATABASE_PASSWORD' => null,

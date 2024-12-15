@@ -3,6 +3,7 @@
 namespace App\Common\EventSubscriber\Security;
 
 use App\Common\Attribute\Security\AllowedUserType;
+use App\Common\Enum\Error\CommonErrorCodeEnum;
 use App\Common\Enum\User\UserType\UserTypeCodeEnum;
 use App\Common\Service\Utils\Helper\LoggedUserHelper;
 use http\Exception\InvalidArgumentException;
@@ -41,7 +42,7 @@ readonly class AllowedUserTypeEventSubscriber implements EventSubscriberInterfac
         }
 
         if (!in_array($this->loggedUserHelper->getLoggedUser()->getType()->getCode(), $attribute->allowedUserTypes, false)) {
-            throw new AccessDeniedHttpException('No permission');
+            throw new AccessDeniedHttpException(CommonErrorCodeEnum::DEFAULT_403);
         }
     }
 }
