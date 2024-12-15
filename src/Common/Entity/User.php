@@ -22,6 +22,8 @@ use Symfony\Component\Serializer\Attribute\SerializedName;
 #[ORM\Index(name: 'idx_email', fields: ['email'])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    public const PASSWORD_TTL_IN_DAYS = 90;
+
     #[ORM\Column(type: Types::INTEGER)]
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: "IDENTITY")]
@@ -102,6 +104,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         # todo
         return null;
+    }
+
+    #[Groups(['loggedUser'])]
+    #[SerializedName('expiredPassword')]
+    public function isPasswordExpired(): bool
+    {
+        $passwordTtlInDays = self::PASSWORD_TTL_IN_DAYS;
+
+        # If password was never changed, it'll be considered as expired
+        if (is_null($this->getPasswordChangedAt())) {
+            return true;
+        }
+
+        $expiryThreshold = (clone $this->getPasswordChangedAt())->modify("+{$passwordTtlInDays} days");
+
+        return new DateTime() > $expiryThreshold;
     }
 
     ######## ================================================
