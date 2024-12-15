@@ -37,7 +37,7 @@ final class Version20241210213145 extends AbstractMigration
         $this->addSql('ALTER TABLE users ADD CONSTRAINT FK_1483A5E9B03A8386 FOREIGN KEY (created_by_id) REFERENCES users (id) ON DELETE SET NULL NOT DEFERRABLE INITIALLY IMMEDIATE;');
 
         $this->addSql("INSERT INTO user_types (id, name, code)
-            VALUES (DEFAULT, 'Admin', 'admin'), (DEFAULT, 'Doctor', 'doctor'), (DEFAULT, 'Nurse', 'nurse'), (DEFAULT, 'Secretary', 'secretary');");
+            VALUES (DEFAULT, 'Admin', 'admin')");
 
                     $this->addSql("INSERT INTO public.users (id, type_id, created_by_id, name, surname, email, username, password, last_login_at,
                                       first_login_at, created_at, password_changed_at, password_request_at, last_token)
