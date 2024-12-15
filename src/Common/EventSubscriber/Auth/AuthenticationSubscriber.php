@@ -53,10 +53,8 @@ readonly class AuthenticationSubscriber implements EventSubscriberInterface
             $loggedUser->setFirstLoginAt(new DateTime());
         }
 
-        dump($event->getData());
         $token = $event->getData()['token'];
 
-        dump($token);
         $loggedUser
             ->setLastToken($token)
             ->setLastLoginAt(new DateTime());

@@ -58,7 +58,6 @@ readonly class ContainsApiTokenEventSubscriber implements EventSubscriberInterfa
         foreach ($apiTokens as $apiToken) {
             $validFrom = $apiToken->getValidFrom();
             $validTo = $apiToken->getValidTo();
-            dump($this->apiTokenEncryptor->decrypt($apiToken->getToken()));
             $valid = $this->apiTokenEncryptor->decrypt($apiToken->getToken()) === $token
                 && (is_null($validFrom) || $validFrom->format('Y-m-d') <= $todayYmd)
                 && (is_null($validTo) || $validTo->format('Y-m-d') >= $todayYmd);

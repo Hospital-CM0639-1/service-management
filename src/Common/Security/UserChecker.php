@@ -27,7 +27,6 @@ readonly class UserChecker implements UserCheckerInterface
 
     public function checkPostAuth(UserInterface|User $user): void
     {
-        dump($this->requestHelper->isPublicAccessPath());
         if (!$this->requestHelper->isPublicAccessPath() && $user->getLastToken() !== $this->jwtHelper->getRequestToken()) {
             throw new ExpiredTokenException();
         }
