@@ -23,11 +23,13 @@ services:
     App\:
         resource: '../src/'
         exclude:
+            - '../src/{Api,Common}/Attribute/'
             - '../src/{Api,Common}/DependencyInjection/'
             - '../src/{Api,Common}/Entity/'
             - '../src/{Api,Common}/Enum/'
             - '../src/{Api,Common}/Error/'
             - '../src/{Api,Common}/Model/'
+            - '../src/{Api,Common}/Regex/'
             - '../src/{Api,Common}/Serializer/'
             - '../src/Kernel.php'
 
