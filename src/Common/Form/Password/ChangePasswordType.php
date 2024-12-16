@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Common\Form\Common\Password;
+namespace App\Common\Form\Password;
 
 use App\Common\Entity\User;
 use App\Common\Enum\Error\CommonErrorCodeEnum;
