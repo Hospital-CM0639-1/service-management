@@ -27,7 +27,44 @@ readonly class UserChecker implements UserCheckerInterface
 
     public function checkPostAuth(UserInterface|User $user): void
     {
-        if (!$this->requestHelper->isPublicAccessPath() && $user->getLastToken() !== $this->jwtHelper->getRequestToken()) {
+        # if api user, no particular checks
+        if ($user->isApi()) {
+            return;
+        }
+
+        $this->verifyTokenValidity(user: $user);
+        $this->verifyPasswordValidity(user: $user);
+    }
+
+    /**
+     * Verify if we are not in a public path and the header token is equals to the last one of the user
+     *
+     * @param User $user
+     * @return void
+     */
+    private function verifyTokenValidity(User $user): void
+    {
+        if (
+            !$this->requestHelper->isPublicAccessPath()
+            && $user->getLastToken() !== $this->jwtHelper->getRequestToken()
+        ) {
+            throw new ExpiredTokenException();
+        }
+    }
+
+    /**
+     * Verify if we are not in a public path and not in the change password one and the password of user is expired
+     *
+     * @param User $user
+     * @return void
+     */
+    private function verifyPasswordValidity(User $user): void
+    {
+        if (
+            !$this->requestHelper->isPublicAccessPath()
+            && !$this->requestHelper->isChangePasswordPath()
+            && $user->isPasswordExpired()
+        ) {
             throw new ExpiredTokenException();
         }
     }

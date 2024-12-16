@@ -33,4 +33,9 @@ readonly class RequestHelper
     {
         return in_array('PUBLIC_ACCESS', $this->accessMap->getPatterns(request: $this->getRequest())[0] ?? [], false);
     }
+
+    public function isChangePasswordPath(): bool
+    {
+        return in_array($this->getRequest()->getPathInfo(), ['/user/change-password'], false);
+    }
 }

@@ -15,4 +15,12 @@ final class CommonErrorCodeEnum
     public const DEFAULT_403 = 'Forbidden';
     public const DEFAULT_401 = 'Expired session';
     public const DEFAULT_400 = 'Bad Request';
+
+
+
+    public const PASSWORD_001 = CommonPasswordErrorCodeEnum::PASSWORD_001;
+    public const PASSWORD_002 = CommonPasswordErrorCodeEnum::PASSWORD_002;
+    public const PASSWORD_003 = CommonPasswordErrorCodeEnum::PASSWORD_003;
+    public const PASSWORD_004 = CommonPasswordErrorCodeEnum::PASSWORD_004;
+    public const PASSWORD_005 = CommonPasswordErrorCodeEnum::PASSWORD_005;
 }
