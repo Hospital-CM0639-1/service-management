@@ -2,6 +2,7 @@
 
 namespace App\Common\Entity;
 
+use App\Common\Entity\Staff\Staff;
 use App\Common\Entity\UserType\UserType;
 use App\Common\Enum\CommonEnum;
 use App\Common\Enum\User\UserType\UserTypeCodeEnum;
@@ -20,6 +21,7 @@ use Symfony\Component\Serializer\Attribute\SerializedName;
 #[ORM\Table(name: 'users')]
 #[ORM\UniqueConstraint(name: 'uq_username', fields: ['username'])]
 #[ORM\Index(name: 'idx_email', fields: ['email'])]
+#[ORM\Index(name: 'idx_active', fields: ['active'])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     public const PASSWORD_TTL_IN_DAYS = 90;
@@ -40,6 +42,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     #[Groups(['minimalUser', 'simpleUser', 'user', 'loggedUser'])]
+    #[SerializedName('firstName')]
     private string $name;
 
     #[ORM\Column]
@@ -47,6 +50,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         'minimalUser', 'simpleUser', 'user', 'loggedUser',
         'simpleApiUserInfo'
     ])]
+    #[SerializedName('lastName')]
     private string $surname;
 
     #[ORM\Column]
@@ -87,6 +91,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[SerializedName('token')]
     private ?string $lastToken = null;
 
+    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => true])]
+    private bool $active = true;
+
+    #[ORM\ManyToOne(targetEntity: Staff::class)]
+    private ?Staff $staff = null;
+
     ######## ================================================
     ######## === VIRTUAL PROPERTIES
     ######## ================================================
@@ -102,8 +112,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[SerializedName('role')]
     public function getSimpleApiUserInfoRole(): ?string
     {
-        # todo
-        return null;
+        return $this->getStaff()?->getRole();
     }
 
     #[Groups(['loggedUser'])]
@@ -317,6 +326,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastToken(?string $lastToken): User
     {
         $this->lastToken = $lastToken;
+        return $this;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): User
+    {
+        $this->active = $active;
+        return $this;
+    }
+
+    public function getStaff(): ?Staff
+    {
+        return $this->staff;
+    }
+
+    public function setStaff(?Staff $staff): User
+    {
+        $this->staff = $staff;
         return $this;
     }
 }
