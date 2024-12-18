@@ -20,7 +20,7 @@ use Symfony\Component\Serializer\Attribute\SerializedName;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: 'users')]
 #[ORM\UniqueConstraint(name: 'uq_username', fields: ['username'])]
-#[ORM\Index(name: 'uq_email', fields: ['email'])]
+#[ORM\UniqueConstraint(name: 'uq_email', fields: ['email'])]
 #[ORM\Index(name: 'idx_active', fields: ['active'])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
