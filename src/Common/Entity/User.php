@@ -20,7 +20,7 @@ use Symfony\Component\Serializer\Attribute\SerializedName;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: 'users')]
 #[ORM\UniqueConstraint(name: 'uq_username', fields: ['username'])]
-#[ORM\Index(name: 'idx_email', fields: ['email'])]
+#[ORM\Index(name: 'uq_email', fields: ['email'])]
 #[ORM\Index(name: 'idx_active', fields: ['active'])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -95,6 +95,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private bool $active = true;
 
     #[ORM\ManyToOne(targetEntity: Staff::class)]
+    #[ORM\JoinColumn(referencedColumnName: 'staff_id')]
     private ?Staff $staff = null;
 
     ######## ================================================

@@ -10,4 +10,5 @@ class ApiErrorCodeEnum
     public const TOKEN_VALIDATION_002 = ApiTokenValidationErrorCodeEnum::TOKEN_VALIDATION_002;
     public const TOKEN_VALIDATION_003 = ApiTokenValidationErrorCodeEnum::TOKEN_VALIDATION_003;
     public const TOKEN_VALIDATION_004 = ApiTokenValidationErrorCodeEnum::TOKEN_VALIDATION_004;
+    public const TOKEN_VALIDATION_005 = ApiTokenValidationErrorCodeEnum::TOKEN_VALIDATION_005;
 }

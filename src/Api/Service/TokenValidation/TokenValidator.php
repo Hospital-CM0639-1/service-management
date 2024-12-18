@@ -76,9 +76,15 @@ readonly class TokenValidator
             }
 
             # try to find user in DB
+            /** @var ?User $user */
             $user = $this->doctrineHelper->getRepository(User::class)->findOneBy(['username' => $payload['username']]);
             if (is_null($user)) {
                 throw new TokenValidationException(message: ApiErrorCodeEnum::TOKEN_VALIDATION_004, httpStatusCode: Response::HTTP_UNAUTHORIZED);
+            }
+
+            # if disable
+            if (!$user->isActive()) {
+                throw new TokenValidationException(message: ApiErrorCodeEnum::TOKEN_VALIDATION_005, httpStatusCode: Response::HTTP_UNAUTHORIZED);
             }
 
             $result = new TokenValidationResult(valid: true, user: $user);
