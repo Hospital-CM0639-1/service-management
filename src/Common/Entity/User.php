@@ -37,7 +37,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ManyToOne(targetEntity: UserType::class)]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
-    #[Groups(['simpleUser', 'user', 'loggedUser'])]
     private UserType $type;
 
     #[ORM\Column]
@@ -92,6 +91,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $lastToken = null;
 
     #[ORM\Column(type: Types::BOOLEAN, options: ['default' => true])]
+    #[Groups(['simpleUser'])]
     private bool $active = true;
 
     #[ORM\ManyToOne(targetEntity: Staff::class)]
@@ -102,14 +102,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     ######## === VIRTUAL PROPERTIES
     ######## ================================================
 
-    #[Groups(['simpleApiUserInfo'])]
+    #[Groups(['simpleUser', 'user', 'simpleApiUserInfo', 'loggedUser'])]
     #[SerializedName('type')]
     public function getSimpleApiUserInfoType(): string
     {
         return $this->getType()->getCode();
     }
 
-    #[Groups(['simpleApiUserInfo'])]
+    #[Groups(['simpleUser', 'user', 'simpleApiUserInfo', 'loggedUser'])]
     #[SerializedName('role')]
     public function getSimpleApiUserInfoRole(): ?string
     {

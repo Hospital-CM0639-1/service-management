@@ -2,6 +2,7 @@
 
 namespace App\Common\Service\User\Search;
 
+use App\Common\Entity\Staff\Staff;
 use App\Common\Entity\User;
 use App\Common\Model\User\UserSearchFilter;
 use App\Common\Repository\User\UserRepository;
@@ -44,7 +45,28 @@ readonly class UserSearcher
         $qb = $repo->createBaseQBVisibleToUser(user: $userToSearchWith);
 
         if (!is_null($filter)) {
+            $active = $filter->getStatus();
+            if (!is_null($active)) {
+                $qb
+                    ->andWhere('u.active = :active')
+                    ->setParameter('active', $active === true ? 1 : 0);
+            }
 
+            $role = $filter->getRole();
+            if (!is_null($role)) {
+
+                # i look for the staffRow associated to the user
+                # with role equals to the given one
+                $existStaffRowWithRoleQb = $this->doctrineHelper->createORMQueryBuilder()
+                    ->select('1')
+                    ->from(Staff::class, 'zz_s')
+                    ->andWhere('zz_s.role = :role')
+                    ->andWhere('zz_s = u.staff');
+
+                $qb
+                    ->andWhere($this->doctrineHelper->getExpressionBuilder()->exists($existStaffRowWithRoleQb->getDQL()))
+                    ->setParameter('role', $role);
+            }
         }
 
         return $qb;

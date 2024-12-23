@@ -8,6 +8,7 @@ use Doctrine\DBAL\Query\QueryBuilder as DBALQueryBuilder;
 use Doctrine\DBAL\Result;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder as ORMQueryBuilder;
 
 readonly class DoctrineHelper
@@ -75,6 +76,11 @@ readonly class DoctrineHelper
     public function commit(): void
     {
         $this->getEntityManager()->commit();
+    }
+
+    public function getExpressionBuilder(): Expr
+    {
+        return $this->getEntityManager()->getExpressionBuilder();
     }
 
     public function createORMQueryBuilder(): ORMQueryBuilder

@@ -17,6 +17,13 @@ final class UserTypeCodeEnum
         ];
     }
 
+    public static function getApiValues(): array
+    {
+        return [
+            self::API
+        ];
+    }
+
     public static function convertToItalian(string $value): string
     {
         return match ($value) {

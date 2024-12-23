@@ -4,16 +4,28 @@ namespace App\Common\Model\User;
 
 class UserSearchFilter
 {
-    private ?bool $active = null;
+    private ?bool $status = null;
+    private ?string $role = null;
 
-    public function getActive(): ?bool
+    public function getStatus(): ?bool
     {
-        return $this->active;
+        return $this->status;
     }
 
-    public function setActive(?bool $active): UserSearchFilter
+    public function setStatus(?bool $status): UserSearchFilter
     {
-        $this->active = $active;
+        $this->status = $status;
+        return $this;
+    }
+
+    public function getRole(): ?string
+    {
+        return $this->role;
+    }
+
+    public function setRole(?string $role): UserSearchFilter
+    {
+        $this->role = $role;
         return $this;
     }
 }

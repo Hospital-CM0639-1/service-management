@@ -4,13 +4,11 @@ namespace App\Common\Controller\User;
 
 use App\Common\Attribute\Security\AllowedUserType;
 use App\Common\Controller\Controller;
-use App\Common\Entity\User;
 use App\Common\Enum\User\UserType\UserTypeCodeEnum;
-use App\Common\Form\Common\User\UserSearchFilterType;
+use App\Common\Form\User\UserSearchFilterType;
 use App\Common\Model\User\UserSearchFilter;
 use App\Common\Serializer\User\UserGroupSerializer;
 use App\Common\Service\User\Search\UserSearcher;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
