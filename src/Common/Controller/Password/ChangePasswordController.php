@@ -6,7 +6,7 @@ use App\Common\Attribute\Security\AllowedUserType;
 use App\Common\Controller\Controller;
 use App\Common\Entity\Password\UserPasswordHistory;
 use App\Common\Enum\User\UserType\UserTypeCodeEnum;
-use App\Common\Form\Common\Password\ChangePasswordType;
+use App\Common\Form\Password\ChangePasswordType;
 use App\Common\Model\Password\ChangePassword;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
