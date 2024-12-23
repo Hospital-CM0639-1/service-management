@@ -20,7 +20,12 @@ class ChangePasswordController extends Controller
     ) {}
 
     #[Route(path: '/user/change-password', name: 'user_change_password', methods: ['POST'])]
-    #[AllowedUserType(allowedUserTypes: [UserTypeCodeEnum::ADMIN])]
+    #[AllowedUserType(
+        allowedUserTypes: [
+            UserTypeCodeEnum::ADMIN,
+            UserTypeCodeEnum::STAFF,
+        ]
+    )]
     public function userChangePassword(Request $request): Response
     {
         $loggedUser = $this->getUser();
