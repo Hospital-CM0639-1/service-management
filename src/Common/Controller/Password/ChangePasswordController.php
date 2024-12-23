@@ -11,6 +11,7 @@ use App\Common\Form\Password\ChangePasswordType;
 use App\Common\Model\Password\ChangePassword;
 use App\Common\Security\Voter\Password\CanChangePasswordToUserVoter;
 use App\Common\Security\Voter\User\CanViewUserVoter;
+use DateTime;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -64,6 +65,7 @@ class ChangePasswordController extends Controller
 
     private function processPasswordChange(Request $request, User $user, bool $requireOldPassword): Response
     {
+        $loggedUser = $this->getUser();
         $changePassword = new ChangePassword();
         $form = $this->createForm(
             type: ChangePasswordType::class,
@@ -88,7 +90,11 @@ class ChangePasswordController extends Controller
             ->setPassword($newPasswordHash);
 
         # Update user and remove the current token
+        $passwordChangedAt = $loggedUser->compareTo($user)
+            ? new DateTime()
+            : new DateTime(sprintf('-%d days', User::PASSWORD_TTL_IN_DAYS));
         $user
+            ->setPasswordChangedAt($passwordChangedAt)
             ->setLastToken(null)
             ->setPassword($newPasswordHash);
 
