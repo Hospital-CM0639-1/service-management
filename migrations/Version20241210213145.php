@@ -42,7 +42,7 @@ final class Version20241210213145 extends AbstractMigration
                     $this->addSql("INSERT INTO public.users (id, type_id, created_by_id, name, surname, email, username, password, last_login_at,
                                       first_login_at, created_at, password_changed_at, password_request_at, last_token)
             VALUES (DEFAULT, 1, null, 'Admin', 'admin', 'admin@example.com', 'admin',
-                    '$2a$12$/wSge4VXeGK9ydxT/C7vPe8tOWNuKpXrxfIDpOQpIa5fjuEMLjEsi', null, null, '2024-12-10 21:36:52 +00:00', null,
+                    '$2a$12$/wSge4VXeGK9ydxT/C7vPe8tOWNuKpXrxfIDpOQpIa5fjuEMLjEsi', null, null, '2024-12-10 21:36:52 +00:00', '2024-12-10 21:36:52 +00:00',
                     null, null);");
     }
 
