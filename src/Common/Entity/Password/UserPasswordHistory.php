@@ -31,6 +31,11 @@ class UserPasswordHistory
     #[Gedmo\Timestampable(on: 'create')]
     private DateTime $createdAt;
 
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(onDelete: 'SET NULL')]
+    #[Gedmo\Blameable(on: 'create')]
+    private ?User $createdBy;
+
     public function getId(): int
     {
         return $this->id;
@@ -66,6 +71,17 @@ class UserPasswordHistory
     public function setCreatedAt(DateTime $createdAt): UserPasswordHistory
     {
         $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    public function getCreatedBy(): ?User
+    {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy(?User $createdBy): UserPasswordHistory
+    {
+        $this->createdBy = $createdBy;
         return $this;
     }
 

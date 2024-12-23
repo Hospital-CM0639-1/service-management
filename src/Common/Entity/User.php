@@ -181,6 +181,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Compara
     }
 
     /**
+     * Verifico se utente staff
+     *
+     * @return bool
+     */
+    public function isStaff(): bool
+    {
+        return UserTypeCodeEnum::STAFF === $this->getType()->getCode();
+    }
+
+    /**
      * @param User $other
      * @return bool
      */
