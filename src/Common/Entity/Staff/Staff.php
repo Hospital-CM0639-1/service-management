@@ -5,6 +5,7 @@ namespace App\Common\Entity\Staff;
 use DateTime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'staff')]
@@ -26,18 +27,23 @@ class Staff
     private string $email;
 
     #[ORM\Column(type: Types::STRING, length: 20, nullable: true)]
+    #[Groups(['staff'])]
     private ?string $phoneNumber = null;
 
     #[ORM\Column(type: Types::STRING, length: 255)]
+    #[Groups(['staff'])]
     private string $role;
 
     #[ORM\Column(type: Types::STRING, length: 100, nullable: true)]
+    #[Groups(['staff'])]
     private ?string $department = null;
 
     #[ORM\Column(type: Types::STRING, length: 100, nullable: true)]
+    #[Groups(['staff'])]
     private ?string $specialization = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, options: ['default' => 'CURRENT_DATE'])]
+    #[Groups(['staff'])]
     private DateTime $hireDate;
 
     #[ORM\Column(type: Types::BOOLEAN, options: ['default' => true])]

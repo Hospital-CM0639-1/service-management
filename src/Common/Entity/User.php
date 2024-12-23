@@ -93,25 +93,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Compara
     private ?string $lastToken = null;
 
     #[ORM\Column(type: Types::BOOLEAN, options: ['default' => true])]
-    #[Groups(['simpleUser'])]
+    #[Groups(['simpleUser', 'user'])]
     private bool $active = true;
 
     #[ORM\ManyToOne(targetEntity: Staff::class)]
     #[ORM\JoinColumn(referencedColumnName: 'staff_id')]
+    #[Groups(['user', 'loggedUser'])]
+    #[SerializedName('staffInfo')]
     private ?Staff $staff = null;
 
     ######## ================================================
     ######## === VIRTUAL PROPERTIES
     ######## ================================================
 
-    #[Groups(['simpleUser', 'user', 'simpleApiUserInfo', 'loggedUser'])]
+    #[Groups(['simpleUser', 'user', 'loggedUser', 'simpleApiUserInfo'])]
     #[SerializedName('type')]
     public function getSimpleApiUserInfoType(): string
     {
         return $this->getType()->getCode();
     }
 
-    #[Groups(['simpleUser', 'user', 'simpleApiUserInfo', 'loggedUser'])]
+    #[Groups(['simpleUser', 'simpleApiUserInfo'])]
     #[SerializedName('role')]
     public function getSimpleApiUserInfoRole(): ?string
     {
