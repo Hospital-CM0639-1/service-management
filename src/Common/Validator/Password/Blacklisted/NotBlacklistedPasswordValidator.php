@@ -30,7 +30,7 @@ class NotBlacklistedPasswordValidator extends ConstraintValidator
         $result = $this->doctrineHelper->createORMQueryBuilder()
             ->select('1')
             ->from(BlacklistedPassword::class, 'bp')
-            ->andWhere(":password like concat('%', bp.password, '%')")
+            ->andWhere("lower(:password) like concat('%', lower(bp.password), '%')")
             ->setParameter('password', $value)
             ->setMaxResults(1)
             ->getQuery()
