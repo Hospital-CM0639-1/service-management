@@ -3,6 +3,7 @@
 namespace App\Common\Enum\Error;
 
 use App\Common\Enum\Error\Password\CommonPasswordErrorCodeEnum;
+use App\Common\Enum\Error\User\CommonUserErrorCodeEnum;
 
 final class CommonErrorCodeEnum
 {
@@ -24,4 +25,11 @@ final class CommonErrorCodeEnum
     public const PASSWORD_003 = CommonPasswordErrorCodeEnum::PASSWORD_003;
     public const PASSWORD_004 = CommonPasswordErrorCodeEnum::PASSWORD_004;
     public const PASSWORD_005 = CommonPasswordErrorCodeEnum::PASSWORD_005;
+
+
+
+    public const USER_001 = CommonUserErrorCodeEnum::USER_001;
+    public const USER_002 = CommonUserErrorCodeEnum::USER_002;
+    public const USER_003 = CommonUserErrorCodeEnum::USER_003;
+    public const USER_004 = CommonUserErrorCodeEnum::USER_004;
 }
