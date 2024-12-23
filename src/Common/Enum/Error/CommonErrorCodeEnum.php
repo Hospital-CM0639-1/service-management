@@ -11,6 +11,7 @@ final class CommonErrorCodeEnum
     public const DEFAULT_002 = 'Invalid credentials';
 
     public const DEFAULT_500 = 'Internal server error';
+    public const DEFAULT_405 = 'Invalid http method';
     public const DEFAULT_404 = 'Resource not found';
     public const DEFAULT_403 = 'Forbidden';
     public const DEFAULT_401 = 'Expired session';

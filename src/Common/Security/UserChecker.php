@@ -20,7 +20,7 @@ readonly class UserChecker implements UserCheckerInterface
 
     public function checkPreAuth(UserInterface|User $user): void
     {
-        if ($user->isApi()) {
+        if ($user->isApi() || !$user->isActive()) {
             throw new DisabledException();
         }
     }
@@ -30,6 +30,10 @@ readonly class UserChecker implements UserCheckerInterface
         # if api user, no particular checks
         if ($user->isApi()) {
             return;
+        }
+
+        if (!$user->isActive()) {
+            throw new DisabledException();
         }
 
         $this->verifyTokenValidity(user: $user);

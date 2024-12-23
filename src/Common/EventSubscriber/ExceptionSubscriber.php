@@ -37,6 +37,7 @@ readonly class ExceptionSubscriber implements EventSubscriberInterface
 
             $message = match ($code) {
                 Response::HTTP_INTERNAL_SERVER_ERROR => CommonErrorCodeEnum::DEFAULT_500,
+                Response::HTTP_METHOD_NOT_ALLOWED => CommonErrorCodeEnum::DEFAULT_405,
                 Response::HTTP_NOT_FOUND => CommonErrorCodeEnum::DEFAULT_404,
                 Response::HTTP_FORBIDDEN => CommonErrorCodeEnum::DEFAULT_403,
                 Response::HTTP_UNAUTHORIZED => CommonErrorCodeEnum::DEFAULT_401,

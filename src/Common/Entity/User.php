@@ -8,6 +8,8 @@ use App\Common\Enum\CommonEnum;
 use App\Common\Enum\User\UserType\UserTypeCodeEnum;
 use App\Common\Repository\User\UserRepository;
 use DateTime;
+use Doctrine\Common\Comparable;
+use Doctrine\Common\Util\ClassUtils;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\ManyToOne;
@@ -22,7 +24,7 @@ use Symfony\Component\Serializer\Attribute\SerializedName;
 #[ORM\UniqueConstraint(name: 'uq_username', fields: ['username'])]
 #[ORM\UniqueConstraint(name: 'uq_email', fields: ['email'])]
 #[ORM\Index(name: 'idx_active', fields: ['active'])]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface, Comparable
 {
     public const PASSWORD_TTL_IN_DAYS = 90;
 
@@ -176,6 +178,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function isApi(): bool
     {
         return UserTypeCodeEnum::API === $this->getType()->getCode();
+    }
+
+    /**
+     * @param User $other
+     * @return bool
+     */
+    public function compareTo($other): bool
+    {
+        if (ClassUtils::getClass($other) !== self::class) {
+            return false;
+        }
+
+        return $other->getId() === $this->getId();
     }
 
     ######## ================================================
