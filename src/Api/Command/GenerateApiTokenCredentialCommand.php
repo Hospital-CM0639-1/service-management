@@ -5,6 +5,8 @@ namespace App\Api\Command;
 use App\Api\Entity\ApiToken;
 use App\Api\Service\ApiTokenEncryptor;
 use App\Common\Entity\User;
+use App\Common\Entity\UserType\UserType;
+use App\Common\Enum\User\UserType\UserTypeCodeEnum;
 use App\Common\Service\Utils\Generator\RandomStringGenerator;
 use App\Common\Service\Utils\Helper\DoctrineHelper;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -32,10 +34,6 @@ class GenerateApiTokenCredentialCommand extends Command
     {
         $this
             ->addOption(
-                name: 'user-id',
-                mode: InputOption::VALUE_REQUIRED,
-            )
-            ->addOption(
                 name: 'name',
                 mode: InputOption::VALUE_REQUIRED,
             )
@@ -53,15 +51,9 @@ class GenerateApiTokenCredentialCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $userId = $input->getOption('user-id');
         $name = $input->getOption('name') ?: RandomStringGenerator::generate();
         $validFrom = $input->getOption('valid-from');
         $validTo = $input->getOption('valid-to');
-
-        if (empty($userId) || !is_numeric($userId)) {
-            $io->error('No user-id was provided');
-            return self::FAILURE;
-        }
 
         if (!empty($validFrom)) {
             $validFrom = \DateTime::createFromFormat('Y-m-d', $validFrom);
@@ -84,26 +76,24 @@ class GenerateApiTokenCredentialCommand extends Command
             return self::FAILURE;
         }
 
-        /** @var ?User $user */
-        $user = $this->doctrineHelper->getRepository(User::class)->find($userId);
-        if (is_null($user)) {
-            $io->error('No user was found with given id');
-            return self::FAILURE;
-        }
+        $apiUserType = $this->doctrineHelper->getRepository(UserType::class)->findOneBy([
+            'code' => UserTypeCodeEnum::API
+        ]);
+        $user = (new User())
+            ->setName($name)
+            ->setSurname('API')
+            ->setEmail(RandomStringGenerator::generate(length: 32))
+            ->setUsername(RandomStringGenerator::generate(length: 32))
+            ->setType($apiUserType)
+            ->setPassword('-');
 
-        if (!$user->isApi()) {
-            $io->error('The given user was not an api');
-            return self::FAILURE;
-        }
-
-        $token =
         $apiToken = (new ApiToken())
             ->setUser($user)
             ->setToken($this->apiTokenEncryptor->encrypt(stringToEncrypt: RandomStringGenerator::generate()))
             ->setName($name)
             ->setValidFrom($validFrom)
             ->setValidTo($validTo);
-        $this->doctrineHelper->save($apiToken);
+        $this->doctrineHelper->save([$user, $apiToken]);
 
         $table = new Table($output);
         $table
