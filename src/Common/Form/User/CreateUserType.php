@@ -57,7 +57,7 @@ class CreateUserType extends EditUserType
                 $data = $event->getData();
                 $userTypeCode = $data['type'] ?? null;
                 $userType = $this->doctrineHelper->getRepository(UserType::class)->findOneBy(['code' => $userTypeCode]);
-                if (is_null($userType)) {
+                if (is_null($userType) || $userType->isApi()) {
                     $event->getForm()->addError(new FormError(message: CommonErrorCodeEnum::DEFAULT_400));
                     return;
                 }

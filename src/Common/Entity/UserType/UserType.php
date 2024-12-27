@@ -2,6 +2,7 @@
 
 namespace App\Common\Entity\UserType;
 
+use App\Common\Enum\User\UserType\UserTypeCodeEnum;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
@@ -23,6 +24,11 @@ class UserType
     #[ORM\Column]
     #[Groups(['userType'])]
     private string $code;
+
+    public function isApi(): bool
+    {
+        return UserTypeCodeEnum::API === $this->getCode();
+    }
 
     public function getId(): int
     {

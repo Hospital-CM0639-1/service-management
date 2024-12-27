@@ -179,7 +179,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Compara
      */
     public function isApi(): bool
     {
-        return UserTypeCodeEnum::API === $this->getType()->getCode();
+        return $this->getType()->isApi();
     }
 
     /**
