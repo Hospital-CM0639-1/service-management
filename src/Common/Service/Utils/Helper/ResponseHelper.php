@@ -29,7 +29,7 @@ readonly class ResponseHelper
     {
         return JsonResponse::fromJsonString(
             data: $this->serializeHelper->serialize(
-                data: ['error' => $form->getErrors(true)->current()->getMessage()],
+                data: ['message' => $form->getErrors(true)->current()->getMessage()],
                 format: $format
             ),
             status: $statusCode
@@ -40,7 +40,7 @@ readonly class ResponseHelper
     {
         return JsonResponse::fromJsonString(
             data: $this->serializeHelper->serialize(
-                data: ['error' => $message],
+                data: ['message' => $message],
                 format: $format
             ),
             status: $statusCode
