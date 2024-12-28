@@ -27,7 +27,15 @@
 
 #### PRELIMINARY INFORMATION
 1. The input for GET path is query params, for the other ones is request body.
-2. Password regex: https://uibakery.io/regex-library/password-regex-php
+2. For each path, in case of an error, the following JSON response will be returned:
+   ```
+   {
+      "message": string; // the message to print
+      "code": number; // HTTP Response code
+      ... // other fields for debugging
+   }
+   ```
+3. Password regex: https://uibakery.io/regex-library/password-regex-php
 ---
 
 #### LOGIN
