@@ -22,7 +22,7 @@ readonly class AllowedUserTypeEventSubscriber implements EventSubscriberInterfac
     public static function getSubscribedEvents(): array
     {
         return [
-            KernelEvents::CONTROLLER_ARGUMENTS => ['userIsValidType'],
+            KernelEvents::CONTROLLER_ARGUMENTS => ['userIsValidType', 4096],
         ];
     }
 
