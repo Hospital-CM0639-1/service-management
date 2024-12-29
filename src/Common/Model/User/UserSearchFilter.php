@@ -6,6 +6,7 @@ class UserSearchFilter
 {
     private ?bool $status = null;
     private ?string $role = null;
+    private ?string $type = null;
 
     public function getStatus(): ?bool
     {
@@ -26,6 +27,17 @@ class UserSearchFilter
     public function setRole(?string $role): UserSearchFilter
     {
         $this->role = $role;
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(?string $type): UserSearchFilter
+    {
+        $this->type = $type;
         return $this;
     }
 }

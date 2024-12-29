@@ -21,7 +21,12 @@ final class ListController extends Controller
     }
 
     #[Route(path: '/minimal-user', name: 'minimal_users_list', methods: ['GET'])]
-    #[AllowedUserType(allowedUserTypes: [UserTypeCodeEnum::ADMIN])]
+    #[AllowedUserType(
+        allowedUserTypes: [
+            UserTypeCodeEnum::ADMIN,
+            UserTypeCodeEnum::STAFF,
+        ]
+    )]
     public function usersList(Request $request): Response
     {
         $filter = new UserSearchFilter();
@@ -39,7 +44,12 @@ final class ListController extends Controller
     }
 
     #[Route(path: '/user', name: 'simple_users_list', methods: ['GET'])]
-    #[AllowedUserType(allowedUserTypes: [UserTypeCodeEnum::ADMIN])]
+    #[AllowedUserType(
+        allowedUserTypes: [
+            UserTypeCodeEnum::ADMIN,
+            UserTypeCodeEnum::STAFF,
+        ]
+    )]
     public function simpleUsersList(Request $request): Response
     {
         $filter = new UserSearchFilter();

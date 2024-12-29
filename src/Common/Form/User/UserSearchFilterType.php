@@ -3,16 +3,28 @@
 namespace App\Common\Form\User;
 
 use App\Common\Enum\Staff\StaffRoleEnum;
+use App\Common\Enum\User\UserType\UserTypeCodeEnum;
 use App\Common\Form\Misc\CheckboxTypeAdderTrait;
 use App\Common\Model\User\UserSearchFilter;
+use App\Common\Service\Utils\Helper\LoggedUserHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Contracts\Service\Attribute\Required;
 
 class UserSearchFilterType extends AbstractType
 {
     use CheckboxTypeAdderTrait;
+
+    private readonly LoggedUserHelper $loggedUserHelper;
+
+    #[Required]
+    public function setLoggedUserHelper(LoggedUserHelper $loggedUserHelper): UserSearchFilterType
+    {
+        $this->loggedUserHelper = $loggedUserHelper;
+        return $this;
+    }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -24,7 +36,18 @@ class UserSearchFilterType extends AbstractType
             falseValue: 'not_active',
             nullValue: 'all'
         );
+
+        $userTypeVisibleToLoggedUser = UserTypeCodeEnum::getTypesVisibleToType(
+            userType: $this->loggedUserHelper->getLoggedUser()->getType()->getCode()
+        );
+
         $builder
+            ->add('type', ChoiceType::class, [
+                'choices' => array_combine(
+                    $userTypeVisibleToLoggedUser,
+                    $userTypeVisibleToLoggedUser
+                )
+            ])
             ->add('role', ChoiceType::class, [
                 'choices' => array_combine(
                     StaffRoleEnum::getAllStaffRoles(),

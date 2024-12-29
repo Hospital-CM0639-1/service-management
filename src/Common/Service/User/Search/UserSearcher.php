@@ -4,6 +4,7 @@ namespace App\Common\Service\User\Search;
 
 use App\Common\Entity\Staff\Staff;
 use App\Common\Entity\User;
+use App\Common\Entity\UserType\UserType;
 use App\Common\Model\User\UserSearchFilter;
 use App\Common\Repository\User\UserRepository;
 use App\Common\Service\Utils\Helper\DoctrineHelper;
@@ -66,6 +67,17 @@ readonly class UserSearcher
                 $qb
                     ->andWhere($this->doctrineHelper->getExpressionBuilder()->exists($existStaffRowWithRoleQb->getDQL()))
                     ->setParameter('role', $role);
+            }
+
+            $type = $filter->getType();
+            if (!is_null($type)) {
+
+                $userType = $this->doctrineHelper->getRepository(UserType::class)->findOneBy(['code' => $type]);
+
+                # user type is equal to the given one
+                $qb
+                    ->andWhere('u.type = :userType')
+                    ->setParameter('userType', $userType);
             }
         }
 

@@ -2,6 +2,7 @@
 
 namespace App\Common\Entity;
 
+use App\Common\Entity\Patient\Patient;
 use App\Common\Entity\Staff\Staff;
 use App\Common\Entity\UserType\UserType;
 use App\Common\Enum\CommonEnum;
@@ -22,7 +23,6 @@ use Symfony\Component\Serializer\Attribute\SerializedName;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: 'users')]
 #[ORM\UniqueConstraint(name: 'uq_username', fields: ['username'])]
-#[ORM\UniqueConstraint(name: 'uq_email', fields: ['email'])]
 #[ORM\Index(name: 'idx_active', fields: ['active'])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface, Comparable
 {
@@ -101,6 +101,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Compara
     #[Groups(['user', 'loggedUser'])]
     #[SerializedName('staffInfo')]
     private ?Staff $staff = null;
+
+    #[ORM\ManyToOne(targetEntity: Patient::class)]
+    #[ORM\JoinColumn(referencedColumnName: 'patient_id')]
+    #[Groups(['user', 'loggedUser'])]
+    #[SerializedName('patientInfo')]
+    private ?Patient $patient = null;
 
     ######## ================================================
     ######## === VIRTUAL PROPERTIES
@@ -189,7 +195,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Compara
      */
     public function isStaff(): bool
     {
-        return UserTypeCodeEnum::STAFF === $this->getType()->getCode();
+        return $this->getType()->isStaff();
+    }
+
+    /**
+     * Verifico se utente paziente
+     *
+     * @return bool
+     */
+    public function isPatient(): bool
+    {
+        return $this->getType()->isPatient();
     }
 
     /**
@@ -376,6 +392,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Compara
     public function setStaff(?Staff $staff): User
     {
         $this->staff = $staff;
+        return $this;
+    }
+
+    public function getPatient(): ?Patient
+    {
+        return $this->patient;
+    }
+
+    public function setPatient(?Patient $patient): User
+    {
+        $this->patient = $patient;
         return $this;
     }
 }

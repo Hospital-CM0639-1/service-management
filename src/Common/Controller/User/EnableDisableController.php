@@ -22,7 +22,12 @@ class EnableDisableController extends Controller
         requirements: ['targetUser' => '\d+', 'enableDisable' => 'enable|disable'],
         methods: ['PUT']
     )]
-    #[AllowedUserType(allowedUserTypes: [UserTypeCodeEnum::ADMIN])]
+    #[AllowedUserType(
+        allowedUserTypes: [
+            UserTypeCodeEnum::ADMIN,
+            UserTypeCodeEnum::STAFF,
+        ]
+    )]
     #[IsGranted(
         attribute: CanViewUserVoter::COMMON_CAN_VIEW_USER,
         subject: 'targetUser',

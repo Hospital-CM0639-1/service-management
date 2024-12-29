@@ -5,8 +5,10 @@ namespace App\Common\Form\User;
 use App\Common\Entity\User;
 use App\Common\Entity\UserType\UserType;
 use App\Common\Enum\Error\CommonErrorCodeEnum;
+use App\Common\Enum\User\UserType\UserTypeCodeEnum;
 use App\Common\Regex\User\UserRegex;
 use App\Common\Service\Utils\Helper\DoctrineHelper;
+use App\Common\Service\Utils\Helper\LoggedUserHelper;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,11 +23,19 @@ use Symfony\Contracts\Service\Attribute\Required;
 class CreateUserType extends EditUserType
 {
     private readonly DoctrineHelper $doctrineHelper;
+    private readonly LoggedUserHelper $loggedUserHelper;
 
     #[Required]
     public function setDoctrineHelper(DoctrineHelper $doctrineHelper): CreateUserType
     {
         $this->doctrineHelper = $doctrineHelper;
+        return $this;
+    }
+
+    #[Required]
+    public function setLoggedUserHelper(LoggedUserHelper $loggedUserHelper): CreateUserType
+    {
+        $this->loggedUserHelper = $loggedUserHelper;
         return $this;
     }
 
@@ -36,14 +46,6 @@ class CreateUserType extends EditUserType
         $builder
             ->add('type', EntityType::class, [
                 'class' => UserType::class
-            ])
-            ->add('email', null, [
-                'constraints' => [
-                    new Email(
-                        message: CommonErrorCodeEnum::USER_001,
-                        mode: Email::VALIDATION_MODE_HTML5
-                    )
-                ]
             ])
             ->add('username', null, [
                 'constraints' => [
@@ -57,7 +59,15 @@ class CreateUserType extends EditUserType
                 $data = $event->getData();
                 $userTypeCode = $data['type'] ?? null;
                 $userType = $this->doctrineHelper->getRepository(UserType::class)->findOneBy(['code' => $userTypeCode]);
-                if (is_null($userType) || $userType->isApi()) {
+
+                $loggedUser = $this->loggedUserHelper->getLoggedUser();
+                if (
+                    # user type not found
+                    is_null($userType)
+
+                    # user type not supported for logged user
+                    || !in_array($userTypeCode, UserTypeCodeEnum::getTypesVisibleToType(userType: $loggedUser->getType()->getCode()), true)
+                ) {
                     $event->getForm()->addError(new FormError(message: CommonErrorCodeEnum::DEFAULT_400));
                     return;
                 }
@@ -73,11 +83,6 @@ class CreateUserType extends EditUserType
         $resolver
             ->setDefaults([
                 'constraints' => [
-                    new UniqueEntity(
-                        fields: ['email'],
-                        message: CommonErrorCodeEnum::USER_003,
-                        entityClass: User::class,
-                    ),
                     new UniqueEntity(
                         fields: ['username'],
                         message: CommonErrorCodeEnum::USER_004,

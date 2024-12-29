@@ -34,7 +34,12 @@ class CreateEditController extends Controller
         name: 'user_create',
         methods: ['POST']
     )]
-    #[AllowedUserType(allowedUserTypes: [UserTypeCodeEnum::ADMIN])]
+    #[AllowedUserType(
+        allowedUserTypes: [
+            UserTypeCodeEnum::ADMIN,
+            UserTypeCodeEnum::STAFF,
+        ]
+    )]
     public function userCreate(Request $request): Response
     {
         return $this->manageUser(request: $request, userToManage: new User(), new: true);
@@ -46,7 +51,12 @@ class CreateEditController extends Controller
         requirements: ['userToManage' => '\d+'],
         methods: ['PUT']
     )]
-    #[AllowedUserType(allowedUserTypes: [UserTypeCodeEnum::ADMIN])]
+    #[AllowedUserType(
+        allowedUserTypes: [
+            UserTypeCodeEnum::ADMIN,
+            UserTypeCodeEnum::STAFF,
+        ]
+    )]
     #[IsGranted(
         attribute: CanViewUserVoter::COMMON_CAN_VIEW_USER,
         subject: 'userToManage',

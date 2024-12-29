@@ -27,7 +27,27 @@ class UserType
 
     public function isApi(): bool
     {
-        return UserTypeCodeEnum::API === $this->getCode();
+        return in_array($this->getCode(), UserTypeCodeEnum::getApiValues(), false);
+    }
+
+    /**
+     * Verifico se utente staff
+     *
+     * @return bool
+     */
+    public function isStaff(): bool
+    {
+        return UserTypeCodeEnum::STAFF === $this->getCode();
+    }
+
+    /**
+     * Verifico se utente paziente
+     *
+     * @return bool
+     */
+    public function isPatient(): bool
+    {
+        return UserTypeCodeEnum::PATIENT === $this->getCode();
     }
 
     public function getId(): int

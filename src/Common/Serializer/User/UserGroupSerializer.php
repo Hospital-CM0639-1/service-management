@@ -2,6 +2,7 @@
 
 namespace App\Common\Serializer\User;
 
+use App\Common\Serializer\Patient\PatientGroupSerializer;
 use App\Common\Serializer\Staff\StaffGroupSerializer;
 use App\Common\Serializer\UserType\UserTypeGroupSerializer;
 
@@ -25,6 +26,7 @@ final class UserGroupSerializer
         return array_merge(
             UserTypeGroupSerializer::userType(),
             StaffGroupSerializer::staff(),
+            PatientGroupSerializer::patient(),
             ['user']
         );
     }
@@ -34,6 +36,7 @@ final class UserGroupSerializer
         return array_merge(
             UserTypeGroupSerializer::userType(),
             StaffGroupSerializer::staff(),
+            PatientGroupSerializer::patient(),
             ['loggedUser']
         );
     }

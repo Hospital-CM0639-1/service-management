@@ -21,7 +21,12 @@ final class DetailController extends Controller
         requirements: ['userToDetail' => '\d+'],
         methods: ['GET']
     )]
-    #[AllowedUserType(allowedUserTypes: [UserTypeCodeEnum::ADMIN])]
+    #[AllowedUserType(
+        allowedUserTypes: [
+            UserTypeCodeEnum::ADMIN,
+            UserTypeCodeEnum::STAFF,
+        ]
+    )]
     #[IsGranted(
         attribute: CanViewUserVoter::COMMON_CAN_VIEW_USER,
         subject: 'userToDetail',

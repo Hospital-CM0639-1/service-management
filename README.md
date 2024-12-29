@@ -67,6 +67,16 @@
           specialization: null | string;
           hireDate: string;
           phone: null | string;
+     },
+     patientInfo: null | { // only if type == patient
+          dateOfBirth: string;
+          gender: string; // Male | Female
+          contactNumber: string;
+          emergencyContactName: string;
+          emergencyContactNumber: string;
+          address: string;
+          insuranceProvider: string;
+          insurancePolicyNumber: string;
      }
 }
 
@@ -125,6 +135,16 @@
           specialization: null | string;
           hireDate: string;
           phone: null | string;
+     },
+     patientInfo: null | { // only if type == patient
+          dateOfBirth: string;
+          gender: string; // Male | Female
+          contactNumber: string;
+          emergencyContactName: string;
+          emergencyContactNumber: string;
+          address: string;
+          insuranceProvider: string;
+          insurancePolicyNumber: string;
      }
 }
 ```
@@ -192,6 +212,16 @@
           specialization: null | string;
           hireDate: string;
           phone: null | string;
+     },
+     patientInfo: null | { // only if type == patient
+          dateOfBirth: string;
+          gender: string; // Male | Female
+          contactNumber: string;
+          emergencyContactName: string;
+          emergencyContactNumber: string;
+          address: string;
+          insuranceProvider: string;
+          insurancePolicyNumber: string;
      }
 }
 ```
@@ -222,6 +252,16 @@
           specialization: null | string;
           hireDate: string;
           phone: null | string;
+     },
+     patientInfo: null | { // only if type == patient
+          dateOfBirth: string;
+          gender: string; // Male | Female
+          contactNumber: string;
+          emergencyContactName: string;
+          emergencyContactNumber: string;
+          address: string;
+          insuranceProvider: string;
+          insurancePolicyNumber: string;
      }
 }
 ```
@@ -245,6 +285,7 @@
 
  ```
 {
+     email: string;
      firstName: string;
      lastName: string;
      staffInfo: null | { // only if type == staff
@@ -253,6 +294,16 @@
           specialization: null | string;
           hireDate: string;
           phone: null | string;
+     },
+     patientInfo: null | { // only if type == patient
+          dateOfBirth: string;
+          gender: string; // Male | Female
+          contactNumber: string;
+          emergencyContactName: string;
+          emergencyContactNumber: string;
+          address: string;
+          insuranceProvider: string;
+          insurancePolicyNumber: string;
      }
 }
 ```
