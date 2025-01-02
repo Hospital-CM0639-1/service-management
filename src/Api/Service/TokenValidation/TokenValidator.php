@@ -82,6 +82,11 @@ readonly class TokenValidator
                 throw new TokenValidationException(message: ApiErrorCodeEnum::TOKEN_VALIDATION_004, httpStatusCode: Response::HTTP_UNAUTHORIZED);
             }
 
+            # if expired
+            if (!$user->getLastToken() !== $token) {
+                throw new TokenValidationException(message: ApiErrorCodeEnum::TOKEN_VALIDATION_003, httpStatusCode: Response::HTTP_UNAUTHORIZED);
+            }
+
             # if disable
             if (!$user->isActive()) {
                 throw new TokenValidationException(message: ApiErrorCodeEnum::TOKEN_VALIDATION_005, httpStatusCode: Response::HTTP_UNAUTHORIZED);

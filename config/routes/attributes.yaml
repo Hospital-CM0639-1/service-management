@@ -1,4 +1,5 @@
 common_controllers:
+  prefix: /api/v1/management-service
   resource:
     path: ../../src/Common/Controller/
     namespace: App\Common\Controller

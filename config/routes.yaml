@@ -1,2 +1,2 @@
 login:
-   path: /login
+   path: "/api/v1/management-service/login"
