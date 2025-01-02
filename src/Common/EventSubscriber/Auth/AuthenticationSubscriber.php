@@ -16,15 +16,17 @@ use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTExpiredEvent;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTInvalidEvent;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTNotFoundEvent;
 use Lexik\Bundle\JWTAuthenticationBundle\Events;
+use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 readonly class AuthenticationSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        private DoctrineHelper  $doctrineHelper,
-        private SerializeHelper $serializeHelper,
-        private ResponseHelper  $responseHelper,
+        private JWTTokenManagerInterface $jwtManager,
+        private DoctrineHelper           $doctrineHelper,
+        private SerializeHelper          $serializeHelper,
+        private ResponseHelper           $responseHelper,
     ) {
     }
 
@@ -53,7 +55,14 @@ readonly class AuthenticationSubscriber implements EventSubscriberInterface
             $loggedUser->setFirstLoginAt(new DateTime());
         }
 
-        $token = $event->getData()['token'];
+        $token = $this->jwtManager->createFromPayload(
+            user: $loggedUser,
+            payload: [
+                'role' => $loggedUser->getStaff()?->getRole(),
+                'type' => $loggedUser->getType()->getCode(),
+                'id' => $loggedUser->getId(),
+            ]
+        );
 
         $loggedUser
             ->setLastToken($token)

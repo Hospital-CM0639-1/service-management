@@ -30,7 +30,7 @@ class ValidateUserTokenController extends Controller
         );
     }
 
-    #[Route(path: '/api/service/validate-user-token', name: 'service_validate_user_token', methods: ['POST'])]
+//    #[Route(path: '/api/service/validate-user-token', name: 'service_validate_user_token', methods: ['POST'])]
     #[ContainsApiToken]
     public function serviceValidateUserToken(Request $request): JsonResponse
     {
