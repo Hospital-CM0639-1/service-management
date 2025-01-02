@@ -12,12 +12,14 @@ services:
     ports:
       - "20001:80"
     restart: unless-stopped
+    networks:
+      - net_storage
     depends_on:
       - hospital-database
 
 networks:
   net_storage:
-    name: database_net_storage
+    name: net_storage
     external: true
 
 #    networks:
