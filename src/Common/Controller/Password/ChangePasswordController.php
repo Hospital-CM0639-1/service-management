@@ -29,6 +29,7 @@ class ChangePasswordController extends Controller
         allowedUserTypes: [
             UserTypeCodeEnum::ADMIN,
             UserTypeCodeEnum::STAFF,
+            UserTypeCodeEnum::PATIENT,
         ]
     )]
     public function userChangePassword(Request $request): Response
