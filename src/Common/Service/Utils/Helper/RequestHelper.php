@@ -12,6 +12,7 @@ readonly class RequestHelper
     public function __construct(
         private RequestStack $requestStack,
         private AccessMapInterface $accessMap,
+        private string $apiPrefix
     ) {}
 
     public function getRequest(): Request
@@ -36,6 +37,6 @@ readonly class RequestHelper
 
     public function isChangePasswordPath(): bool
     {
-        return in_array($this->getRequest()->getPathInfo(), ['/user/change-password'], false);
+        return in_array($this->getRequest()->getPathInfo(), [$this->apiPrefix . '/user/change-password'], false);
     }
 }
