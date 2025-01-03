@@ -19,9 +19,9 @@ class LoggedController extends Controller
     {
         $loggedUser = $this->getUser();
 
-        # creo un nuovo token e lo setto nell'utente
-        $loggedUser->setLastToken($this->tokenManager->create(user: $loggedUser));
-        $this->save();
+//        # creo un nuovo token e lo setto nell'utente
+//        $loggedUser->setLastToken($this->tokenManager->create(user: $loggedUser));
+//        $this->save();
 
         return $this->makeDataJsonResponse(data: $loggedUser, groups: UserGroupSerializer::loggedUser());
     }
