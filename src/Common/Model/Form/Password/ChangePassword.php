@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Common\Model\Password;
+namespace App\Common\Model\Form\Password;
 
 class ChangePassword
 {

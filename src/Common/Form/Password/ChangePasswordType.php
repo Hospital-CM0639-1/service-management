@@ -4,7 +4,7 @@ namespace App\Common\Form\Password;
 
 use App\Common\Entity\User;
 use App\Common\Enum\Error\CommonErrorCodeEnum;
-use App\Common\Model\Password\ChangePassword;
+use App\Common\Model\Form\Password\ChangePassword;
 use App\Common\Regex\Password\PasswordRegex;
 use App\Common\Validator\Password\Blacklisted\NotBlacklistedPassword;
 use App\Common\Validator\Password\Repeated\NotRepeatedPassword;

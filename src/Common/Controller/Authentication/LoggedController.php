@@ -3,7 +3,7 @@
 namespace App\Common\Controller\Authentication;
 
 use App\Common\Controller\Controller;
-use App\Common\Serializer\User\UserGroupSerializer;
+use App\Common\Serializer\Entity\User\UserGroupSerializer;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;

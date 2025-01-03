@@ -8,7 +8,7 @@ use App\Common\Entity\User;
 use App\Common\Enum\Error\CommonErrorCodeEnum;
 use App\Common\Enum\User\UserType\UserTypeCodeEnum;
 use App\Common\Security\Voter\User\CanViewUserVoter;
-use App\Common\Serializer\User\UserGroupSerializer;
+use App\Common\Serializer\Entity\User\UserGroupSerializer;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;

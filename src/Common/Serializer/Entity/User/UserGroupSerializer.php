@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Common\Serializer\User;
+namespace App\Common\Serializer\Entity\User;
 
-use App\Common\Serializer\Patient\PatientGroupSerializer;
-use App\Common\Serializer\Staff\StaffGroupSerializer;
-use App\Common\Serializer\UserType\UserTypeGroupSerializer;
+use App\Common\Serializer\Entity\Patient\PatientGroupSerializer;
+use App\Common\Serializer\Entity\Staff\StaffGroupSerializer;
+use App\Common\Serializer\Entity\UserType\UserTypeGroupSerializer;
 
 final class UserGroupSerializer
 {

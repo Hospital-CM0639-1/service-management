@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Common\Serializer\Patient;
+namespace App\Common\Serializer\Entity\Patient;
 
 final class PatientGroupSerializer
 {

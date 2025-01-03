@@ -4,17 +4,11 @@ namespace App\Common\Controller\User;
 
 use App\Common\Attribute\Security\AllowedUserType;
 use App\Common\Controller\Controller;
-use App\Common\Entity\Staff\Staff;
 use App\Common\Entity\User;
 use App\Common\Enum\Error\CommonErrorCodeEnum;
 use App\Common\Enum\User\UserType\UserTypeCodeEnum;
-use App\Common\Error\FormException;
 use App\Common\Error\GenericException;
-use App\Common\Form\Staff\StaffType;
-use App\Common\Form\User\CreateUserType;
-use App\Common\Form\User\EditUserType;
 use App\Common\Security\Voter\User\CanViewUserVoter;
-use App\Common\Serializer\User\UserGroupSerializer;
 use App\Common\Service\User\Action\UserCreateEditManager;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

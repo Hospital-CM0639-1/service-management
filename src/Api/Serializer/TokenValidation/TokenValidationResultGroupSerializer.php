@@ -2,7 +2,7 @@
 
 namespace App\Api\Serializer\TokenValidation;
 
-use App\Common\Serializer\User\UserGroupSerializer;
+use App\Common\Serializer\Entity\User\UserGroupSerializer;
 
 class TokenValidationResultGroupSerializer
 {

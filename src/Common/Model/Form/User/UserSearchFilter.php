@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Common\Model\User;
+namespace App\Common\Model\Form\User;
 
 class UserSearchFilter
 {

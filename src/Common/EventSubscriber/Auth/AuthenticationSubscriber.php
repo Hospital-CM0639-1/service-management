@@ -4,14 +4,13 @@ namespace App\Common\EventSubscriber\Auth;
 
 use App\Common\Entity\User;
 use App\Common\Enum\Error\CommonErrorCodeEnum;
-use App\Common\Serializer\User\UserGroupSerializer;
+use App\Common\Serializer\Entity\User\UserGroupSerializer;
 use App\Common\Service\Utils\Helper\DoctrineHelper;
 use App\Common\Service\Utils\Helper\ResponseHelper;
 use App\Common\Service\Utils\Helper\SerializeHelper;
 use DateTime;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\AuthenticationFailureEvent;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\AuthenticationSuccessEvent;
-//use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTExpiredEvent;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTInvalidEvent;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTNotFoundEvent;
@@ -19,6 +18,8 @@ use Lexik\Bundle\JWTAuthenticationBundle\Events;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
+
+//use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent;
 
 readonly class AuthenticationSubscriber implements EventSubscriberInterface
 {

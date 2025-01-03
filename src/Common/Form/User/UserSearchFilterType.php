@@ -5,7 +5,7 @@ namespace App\Common\Form\User;
 use App\Common\Enum\Staff\StaffRoleEnum;
 use App\Common\Enum\User\UserType\UserTypeCodeEnum;
 use App\Common\Form\Misc\CheckboxTypeAdderTrait;
-use App\Common\Model\User\UserSearchFilter;
+use App\Common\Model\Form\User\UserSearchFilter;
 use App\Common\Service\Utils\Helper\LoggedUserHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;

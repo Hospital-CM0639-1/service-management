@@ -8,7 +8,7 @@ use App\Common\Entity\User;
 use App\Common\Enum\Error\CommonErrorCodeEnum;
 use App\Common\Enum\User\UserType\UserTypeCodeEnum;
 use App\Common\Form\Password\ChangePasswordType;
-use App\Common\Model\Password\ChangePassword;
+use App\Common\Model\Form\Password\ChangePassword;
 use App\Common\Security\Voter\Password\CanChangePasswordToUserVoter;
 use App\Common\Security\Voter\User\CanViewUserVoter;
 use DateTime;

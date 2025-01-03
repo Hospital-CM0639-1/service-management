@@ -5,7 +5,7 @@ namespace App\Common\Service\User\Search;
 use App\Common\Entity\Staff\Staff;
 use App\Common\Entity\User;
 use App\Common\Entity\UserType\UserType;
-use App\Common\Model\User\UserSearchFilter;
+use App\Common\Model\Form\User\UserSearchFilter;
 use App\Common\Repository\User\UserRepository;
 use App\Common\Service\Utils\Helper\DoctrineHelper;
 use App\Common\Service\Utils\Helper\LoggedUserHelper;

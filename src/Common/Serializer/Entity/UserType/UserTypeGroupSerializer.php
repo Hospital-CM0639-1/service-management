@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Common\Serializer\UserType;
+namespace App\Common\Serializer\Entity\UserType;
 
 final class UserTypeGroupSerializer
 {

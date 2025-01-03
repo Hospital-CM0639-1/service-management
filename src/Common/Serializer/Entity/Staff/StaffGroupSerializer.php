@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Common\Serializer\Staff;
+namespace App\Common\Serializer\Entity\Staff;
 
 final class StaffGroupSerializer
 {
