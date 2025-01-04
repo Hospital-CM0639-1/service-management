@@ -6,6 +6,7 @@ common_controllers:
   type: attribute
 
 api_controllers:
+  prefix: /api/v1/management-service
   resource:
     path: ../../src/Api/Controller/
     namespace: App\Api\Controller

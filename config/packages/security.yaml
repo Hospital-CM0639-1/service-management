@@ -33,6 +33,5 @@ security:
 
     access_control:
         - { path: "^%env(resolve:API_PREFIX)%/login$", roles: PUBLIC_ACCESS }
-        - { path: ^/api/gateway/validate-user-token$, roles: PUBLIC_ACCESS }
-        - { path: ^/api/service/validate-user-token$, roles: PUBLIC_ACCESS }
+        - { path: "^%env(resolve:API_PREFIX)%/gateway/validate-user-token", roles: PUBLIC_ACCESS }
         - { path: ^/, roles: ROLE_USER }
