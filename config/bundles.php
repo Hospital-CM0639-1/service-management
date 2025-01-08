@@ -13,4 +13,6 @@ return [
     Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle::class => ['all' => true],
     Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle::class => ['all' => true],
     Symfony\Bundle\DebugBundle\DebugBundle::class => ['dev' => true],
+    Nelmio\CorsBundle\NelmioCorsBundle::class => ['all' => true],
+    Nelmio\SecurityBundle\NelmioSecurityBundle::class => ['all' => true],
 ];
