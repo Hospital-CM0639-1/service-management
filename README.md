@@ -11,7 +11,7 @@
    NB: DO NOT EXECUTE MIGRATIONS IF YOU HAVE EXECUTE SCRIPT IN DATABASE REPOSITORY
 5. Check .env.dev.local and .env.local.php to see if DATABASE_ params are correct, otherwise change in both files.
 6. The service is reachable to http://127.0.0.1:DOCKER_PORT
-7. To check if it works correctly, call http://127.0.0.1:DOCKER_PORT/login in POST with following json body: {"username": "admin", "password": "admin"}
+7. To check if it works correctly, call http://127.0.0.1:DOCKER_PORT/api/v1/management-service/login in POST with following json body: {"username": "admin", "password": "admin"}
 
 
 
