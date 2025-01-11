@@ -17,6 +17,7 @@ class Patient
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(name: 'patient_id', type: Types::INTEGER)]
+    #[Groups(['staff'])]
     private ?int $id = null;
 
     #[ORM\Column(type: Types::STRING, length: 100)]
