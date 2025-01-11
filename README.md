@@ -1,18 +1,24 @@
 # MANAGEMENT SERVICE
 
 ### Setup
-1. Download "dev.decrypt.private.php" key from keys-repo and put it inside of config/secrets/dev
-2. Download "public.pem" and "private.pem" jwt keys from keys-repo and put it inside config/jwt
+1. Download "dev.decrypt.private.php" key from **service-management-keys** repository (https://github.com/Hospital-CM0639-1/service-management-keys/tree/main) and put it inside of config/secrets/dev
+2. Download "public.pem" and "private.pem" jwt keys from **service-management-keys** repository (https://github.com/Hospital-CM0639-1/service-management-keys/tree/main) and put it inside config/jwt
 3. Eventually, you can change docker port inside of docker-composer.yaml (default 20001)
 4. Launch the setup with:
     ```sh
     docker compose -f PATH_TO_REPO/docker-compose.yaml -p service-management up -d
     ```
-5. Execute PATH_TO_REPO/docker-start.sh (or one by one) to install dependencies and execute migrations (I suggest to execute them every time after a pull)
-   NB: DO NOT EXECUTE MIGRATIONS IF YOU HAVE EXECUTE SCRIPT IN DATABASE REPOSITORY
+5. Execute the following commands:
+   ```sh
+   docker exec --workdir /var/www/html service-management composer install --no-interaction --optimize-autoloader
+   docker exec --workdir /var/www/html service-management php bin/console secrets:decrypt-to-local --force --env=dev
+   docker exec --workdir /var/www/html service-management composer dump-env dev
+   docker exec --workdir /var/www/html service-management php bin/console cache:clear --quiet
+   docker exec --workdir /var/www/html service-management php bin/console c:w --quiet
+   ```
 6. Check .env.dev.local and .env.local.php to see if DATABASE_ params are correct, otherwise change in both files.
 7. The service is reachable to http://127.0.0.1:DOCKER_PORT
-8. To check if it works correctly, call http://127.0.0.1:DOCKER_PORT/api/v1/management-service/login in POST with following json body: {"username": "admin", "password": "admin"}
+8. To check if it works correctly, call http://127.0.0.1:DOCKER_PORT/api/v1/management-service/login in POST with following json body: {"username": "admin", "password": "P4ssword1@"}
 
 
 
