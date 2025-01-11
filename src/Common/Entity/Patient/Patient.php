@@ -60,11 +60,11 @@ class Patient
     #[Groups(['patient'])]
     private string $insurancePolicyNumber;
 
-    #[ORM\Column(type: Types::DATETIMETZ_MUTABLE, options: ['default' => CommonEnum::CURRENT_TIMESTAMP])]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, options: ['default' => CommonEnum::CURRENT_TIMESTAMP])]
     #[Gedmo\Timestampable(on: 'create')]
     private DateTime $createdAt;
 
-    #[ORM\Column(type: Types::DATETIMETZ_MUTABLE, options: ['default' => CommonEnum::CURRENT_TIMESTAMP])]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, options: ['default' => CommonEnum::CURRENT_TIMESTAMP])]
     #[Gedmo\Timestampable(on: 'create')]
     private DateTime $lastUpdated;
 
