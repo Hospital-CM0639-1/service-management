@@ -26,6 +26,7 @@ readonly class UserSearcher
     public function search(?UserSearchFilter $filter = null, ?User $searcherUser = null): array
     {
         return $this->createBaseQB(filter: $filter, searcherUser: $searcherUser)
+            ->addOrderBy('u.id', 'ASC')
             ->getQuery()
             ->getResult();
     }

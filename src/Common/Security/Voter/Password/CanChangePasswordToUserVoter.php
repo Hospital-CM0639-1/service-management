@@ -24,8 +24,7 @@ class CanChangePasswordToUserVoter extends Voter
         $loggedUser = $token->getUser();
 
         # the logged user must not the user whose password is changing
-        # and it must be a staff user
         return !$user->compareTo($loggedUser)
-            && $user->isStaff();
+            && ($user->isStaff() || $user->isPatient());
     }
 }
