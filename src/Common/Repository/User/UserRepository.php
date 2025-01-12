@@ -13,8 +13,7 @@ class UserRepository extends Repository
     public function createBaseQB(string $alias = 'u'): QueryBuilder
     {
         return $this
-            ->createQueryBuilder(alias: $alias)
-            ->addOrderBy("$alias.id", 'DESC');
+            ->createQueryBuilder(alias: $alias);
     }
 
     /**
