@@ -43,7 +43,12 @@ class ChangePasswordController extends Controller
     }
 
     #[Route(path: '/user/{userToChangePassword}/change-password', name: 'user_change_password_to_another_one', methods: ['POST'])]
-    #[AllowedUserType(allowedUserTypes: [UserTypeCodeEnum::ADMIN])]
+    #[AllowedUserType(
+        allowedUserTypes: [
+            UserTypeCodeEnum::ADMIN,
+            UserTypeCodeEnum::STAFF,
+        ]
+    )]
     #[IsGranted(
         attribute: CanViewUserVoter::COMMON_CAN_VIEW_USER,
         subject: 'userToChangePassword',
