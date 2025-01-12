@@ -22,4 +22,5 @@ return array (
   'DATABASE_USER' => 'root',
   'DATABASE_VERSION' => '16',
   'JWT_PASSPHRASE' => 'sNfzG33K8763ZrsCL4sdeeIfRIqnvEVq',
+  'DEFAULT_PASSWORD' => 'P4ssword1@'
 );

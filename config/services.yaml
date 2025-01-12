@@ -18,6 +18,7 @@ services:
             int $repeatedPasswordTtl: '%env(int:REPEATED_PASSWORD_TTL)%'
             string $apiTokenHeaderFieldName: '%env(resolve:API_TOKEN_HEADER_FIELD_NAME)%'
             string $apiPrefix: '%env(resolve:API_PREFIX)%'
+            string $defaultPassword: '%env(resolve:DEFAULT_PASSWORD)%'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name

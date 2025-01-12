@@ -2,6 +2,7 @@
 
 namespace App\Common\Service\User\Action;
 
+use App\Common\Entity\Password\UserPasswordHistory;
 use App\Common\Entity\Patient\Patient;
 use App\Common\Entity\Staff\Staff;
 use App\Common\Entity\User;
@@ -13,12 +14,15 @@ use App\Common\Form\User\EditUserType;
 use App\Common\Service\Utils\Helper\DoctrineHelper;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 readonly class UserCreateEditManager
 {
     public function __construct(
         private DoctrineHelper $doctrineHelper,
         private FormFactoryInterface $formFactory,
+        private UserPasswordHasherInterface $passwordHasher,
+        private string $defaultPassword
     ) {}
 
     /**
@@ -49,6 +53,21 @@ readonly class UserCreateEditManager
         if ($userToManage->isPatient()) {
             $this->managePatientInfo(request: $request, user: $userToManage);
         }
+
+        # Hash the new password
+        $newPasswordHash = $this->passwordHasher->hashPassword(user: $userToManage, plainPassword: $this->defaultPassword);
+
+        # Save the new password to history
+        $userPasswordHistory = (new UserPasswordHistory())
+            ->setUser($userToManage)
+            ->setPassword($newPasswordHash);
+
+        # Update user and remove the current token
+        $userToManage
+            ->setPassword($newPasswordHash);
+
+        # Persist the updated entities
+        $this->doctrineHelper->save($userPasswordHistory);
     }
 
     /**
